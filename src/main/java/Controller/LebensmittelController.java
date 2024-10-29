@@ -19,7 +19,7 @@ public class LebensmittelController {
         lebensmittelListe.add(new Lebensmittel("Kartoffel", 77));
     }
 
-    @GetMapping(path = "/api/lebensmittel") //funktioniert noch nicht
+    @GetMapping(path = "/api/lebensmittel") //funktioniert noch nicht, Fehlermeldung unbekannt
     public ResponseEntity<List<Lebensmittel>> getLebensmittelListe() {
         return ResponseEntity.ok(lebensmittelListe);
     }
