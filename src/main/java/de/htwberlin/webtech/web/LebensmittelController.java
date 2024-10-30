@@ -1,6 +1,7 @@
-package Controller;
+package de.htwberlin.webtech.web;
 
-import Entity.Lebensmittel;
+
+import de.htwberlin.webtech.model.Lebensmittel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

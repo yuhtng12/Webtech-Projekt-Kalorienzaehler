@@ -1,4 +1,6 @@
-package Entity;
+package de.htwberlin.webtech.model;
+
+
 
 public class Lebensmittel {
     private String name;
