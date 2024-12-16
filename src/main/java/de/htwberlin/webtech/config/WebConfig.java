@@ -1,23 +1,22 @@
 package de.htwberlin.webtech.config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class WebConfig {
+@EnableWebMvc
+public class WebConfig implements WebMvcConfigurer {
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOrigins("https://frontend-kalorienzaehler.onrender.com")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE")
-                        .allowedHeaders("*");
-            }
-        };
+    @Override
+    public void addCorsMappings(final CorsRegistry registry) {
+        registry
+                .addMapping("/**") // Aktiviert CORS für alle Endpunkte
+                .allowedMethods("*") // Erlaubt alle HTTP-Methoden (GET, POST, PUT, DELETE, etc.)
+                .allowedOrigins(
+                        "http://localhost:3000", // Lokale Entwicklung
+                        "https://frontend-kalorienzaehler.onrender.com" // Dein deployed Frontend
+                );
     }
 }
