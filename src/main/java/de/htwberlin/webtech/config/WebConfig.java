@@ -15,7 +15,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .addMapping("/**") // Aktiviert CORS für alle Endpunkte
                 .allowedMethods("*") // Erlaubt alle HTTP-Methoden (GET, POST, PUT, DELETE, etc.)
                 .allowedOrigins(
-                        "http://localhost:3000", // Lokale Entwicklung
+                        "http://localhost:8080", // Lokale Entwicklung
                         "https://frontend-kalorienzaehler.onrender.com" // Dein deployed Frontend
                 );
     }

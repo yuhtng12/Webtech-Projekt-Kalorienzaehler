@@ -1,21 +1,31 @@
 package de.htwberlin.webtech.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-
+@Entity
 public class Lebensmittel {
-    private String name;
-    private int kalorien; // Kalorien pro 100g
 
-    // Standardkonstruktor
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+    private int kalorien;
+
     public Lebensmittel() {}
 
-    // Konstruktor mit Parametern
     public Lebensmittel(String name, int kalorien) {
         this.name = name;
         this.kalorien = kalorien;
     }
 
-    // Getter und Setter
+    public Long getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
@@ -32,6 +42,3 @@ public class Lebensmittel {
         this.kalorien = kalorien;
     }
 }
-
-
-

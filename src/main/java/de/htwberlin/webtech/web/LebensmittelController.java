@@ -1,34 +1,46 @@
 package de.htwberlin.webtech.web;
 
 import de.htwberlin.webtech.model.Lebensmittel;
+import de.htwberlin.webtech.service.LebensmittelService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+
+@RestController
+@RequestMapping("/api/lebensmittel")
+@CrossOrigin(origins = "https://frontend-kalorienzaehler.onrender.com")
 public class LebensmittelController {
 
-    private final List<Lebensmittel> lebensmittelListe = new ArrayList<>();
+    private final LebensmittelService lebensmittelService;
 
-    public LebensmittelController() {
-        lebensmittelListe.add(new Lebensmittel("Apfel", 52));
-        lebensmittelListe.add(new Lebensmittel("Banane", 89));
-        lebensmittelListe.add(new Lebensmittel("Kartoffel", 77));
+    public LebensmittelController(LebensmittelService lebensmittelService) {
+        this.lebensmittelService = lebensmittelService;
     }
 
-    @CrossOrigin(origins = "https://frontend-kalorienzaehler.onrender.com")
-    @GetMapping(path = "/api/lebensmittel")
-    @ResponseBody
-    public ResponseEntity<List<Lebensmittel>> getLebensmittelListe() {
+    // GET: Alle Lebensmittel abrufen
+    @GetMapping
+    public ResponseEntity<List<Lebensmittel>> getAllLebensmittel() {
+        List<Lebensmittel> lebensmittel = lebensmittelService.findAll();
         return ResponseEntity.ok()
                 .header("Cache-Control", "no-cache, no-store, must-revalidate")
                 .header("Pragma", "no-cache")
                 .header("Expires", "0")
-                .body(lebensmittelListe);
+                .body(lebensmittel);
+    }
+
+    // POST: Neues Lebensmittel hinzufügen
+    @PostMapping
+    public ResponseEntity<Lebensmittel> addLebensmittel(@RequestBody Lebensmittel lebensmittel) {
+        Lebensmittel savedLebensmittel = lebensmittelService.save(lebensmittel);
+        return ResponseEntity.ok(savedLebensmittel);
+    }
+
+    // DELETE: Lebensmittel nach ID löschen
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteLebensmittel(@PathVariable Long id) {
+        lebensmittelService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }
